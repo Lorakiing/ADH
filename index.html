@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Doll's House - Enter the World of Ibsen</title>
+    <style>
+        /* Global Styles - Matching the quiz page */
+        :root {
+            --primary-color: #1a2639;
+            --secondary-color: #3e4a61;
+            --tertiary-color: #7d4e57;
+            --accent-color: #b6465f;
+            --light-color: #d8dbe2;
+            --dark-color: #0d1321;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s ease;
+            --primary-color-rgb: 26, 38, 57;
+            --accent-color-rgb: 182, 70, 95;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--dark-color);
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMTExIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMyMjIiPjwvcmVjdD4KPHJlY3Qgd2lkdGg9IjEiIGhlaWdodD0iMSIgeD0iMiIgeT0iMiIgZmlsbD0iIzIyMiI+PC9yZWN0Pgo8L3N2Zz4=');
+            color: var(--light-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--light-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            letter-spacing: 0.5px;
+            line-height: 1.8;
+            font-style: italic;
+            max-width: 700px;
+        }
+
+        /* Container */
+        .container {
+            background-color: var(--primary-color);
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+CjxyZWN0IHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgZmlsbD0ibm9uZSI+PC9yZWN0Pgo8cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSI1MCIgZmlsbD0iIzIyMjgzMCI+PC9yZWN0Pgo8cmVjdCB3aWR0aD0iNTAiIGhlaWdodD0iMSIgZmlsbD0iIzIyMjgzMCI+PC9yZWN0Pgo8L3N2Zz4=');
+            border-radius: 0;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            width: 100%;
+            padding: 2rem;
+            margin: 0 auto;
+            transition: var(--transition);
+            border: 1px solid var(--tertiary-color);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 1px solid var(--accent-color);
+            pointer-events: none;
+        }
+
+        /* Door Styles */
+        .door-container {
+            width: 200px;
+            height: 300px;
+            margin: 2rem auto;
+            perspective: 1000px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .door {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1.5s;
+        }
+
+        .door-frame {
+            position: absolute;
+            width: 220px;
+            height: 320px;
+            left: -10px;
+            top: -10px;
+            border: 5px solid var(--tertiary-color);
+            box-shadow: var(--shadow);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .door-front, .door-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--tertiary-color);
+        }
+
+        .door-front {
+            background-color: var(--tertiary-color);
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+CjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSI+PC9yZWN0Pgo8cmVjdCB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHg9IjUiIHk9IjUiIHN0cm9rZT0iIzk5NzA3MCIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIj48L3JlY3Q+Cjwvc3ZnPg==');
+        }
+
+        .door-back {
+            background-color: var(--accent-color);
+            transform: rotateY(180deg);
+        }
+
+        .door-knob {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: 15px;
+            top: 50%;
+            background-color: #442b2f;
+            border-radius: 50%;
+            border: 1px solid #442b2f;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .door:hover .door-knob {
+            animation: wiggle 0.5s ease;
+        }
+
+        .door.open {
+            transform: rotateY(80deg) translateX(-250px);
+        }
+
+        .door-message {
+            color: var(--light-color);
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Instructions */
+        .instructions {
+            margin-top: 1rem;
+            color: var(--accent-color);
+            font-style: italic;
+            animation: pulse 2s infinite;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.7s ease forwards;
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 767px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            .container {
+                padding: 1.5rem;
+            }
+            .door-container {
+                width: 150px;
+                height: 250px;
+            }
+            .door-frame {
+                width: 170px;
+                height: 270px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container fade-in">
+        <h1>A Doll's House</h1>
+        <h2>By Henrik Ibsen</h2>
+        
+        <p>
+            In Henrik Ibsen's groundbreaking play "A Doll's House" (1879), Nora Helmer lives what appears to be a perfect life with her husband Torvald and their three children. However, a secret debt from her past threatens their marriage when Torvald discovers Nora forged her father's signature to secure a loan that saved his life. The play culminates in Nora's dramatic awakening to the realization that she's been living as a "doll" in her own home, leading to a revolutionary decision that shocked audiences of the time.
+        </p>
+        
+        <div class="door-container" id="doorContainer">
+            <div class="door-frame"></div>
+            <div class="door" id="door">
+                <div class="door-front">
+                    <div class="door-knob"></div>
+                </div>
+                <div class="door-back">
+                    <span class="door-message">Welcome!</span>
+                </div>
+            </div>
+        </div>
+        
+        <p class="instructions">Click on the door to discover which character you resemble!</p>
+    </div>
+
+    <script>
+        // Door interaction
+        const door = document.getElementById('door');
+        const doorContainer = document.getElementById('doorContainer');
+        
+        doorContainer.addEventListener('click', function() {
+            // Play knocking sound
+            const knockSound = new Audio('sounds/open_door.mp3');
+            knockSound.play();
+            
+            // Add open class after a short delay
+            setTimeout(function() {
+                door.classList.add('open');
+                
+                // Navigate to quiz page after door opens
+                setTimeout(function() {
+                    window.location.href = 'quiz.html';
+                }, 1500);
+            }, 800);
+        });
+    </script>
+</body>
+
+</html>
